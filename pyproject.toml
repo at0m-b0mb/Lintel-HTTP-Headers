@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lintel-headers"
+version = "1.0.0"
+description = "Mind the headers — an offline grader for HTTP response security headers."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "at0m-b0mb" }]
+keywords = ["http", "security", "headers", "csp", "hsts", "cookies", "clickjacking", "web"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: X11 Applications :: Qt",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Security",
+]
+dependencies = ["PyQt6>=6.5"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.urls]
+Homepage = "https://github.com/at0m-b0mb/Lintel"
+Source = "https://github.com/at0m-b0mb/Lintel"
+
+[project.scripts]
+lintel = "lintel.cli:main"
+
+[project.gui-scripts]
+lintel-gui = "lintel.app:main"
+
+[tool.setuptools]
+packages = ["lintel", "lintel.core", "lintel.ui"]

@@ -1,0 +1,8 @@
+HTTP/2 200
+server: cloudflare
+content-type: text/html; charset=utf-8
+strict-transport-security: max-age=31536000; includeSubDomains
+content-security-policy: default-src 'self'; script-src 'self'; frame-ancestors 'none'
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+set-cookie: __session=zz; Path=/; Secure; HttpOnly; SameSite=Lax

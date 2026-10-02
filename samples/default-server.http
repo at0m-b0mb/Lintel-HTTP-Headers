@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Date: Thu, 02 Oct 2026 12:00:00 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1256
+Connection: keep-alive
+X-Powered-By: PHP/7.2.24

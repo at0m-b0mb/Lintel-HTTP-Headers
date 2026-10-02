@@ -1,0 +1,11 @@
+HTTP/2 200
+server: cloudfront
+content-type: text/html; charset=utf-8
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+content-security-policy: default-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'
+x-content-type-options: nosniff
+x-frame-options: DENY
+referrer-policy: strict-origin-when-cross-origin
+permissions-policy: geolocation=(), camera=(), microphone=()
+cross-origin-opener-policy: same-origin
+set-cookie: session=abc123; Path=/; Secure; HttpOnly; SameSite=Strict
