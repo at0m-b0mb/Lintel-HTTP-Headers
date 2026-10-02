@@ -104,3 +104,21 @@ def test_disclosure_server_version():
 def test_deprecated_hpkp_and_xss():
     f = checks.check_deprecated(_r("x-xss-protection: 1; mode=block\npublic-key-pins: x\n"))
     assert len(f) == 2
+
+
+def test_hsts_floor_is_the_preload_requirement_of_one_year():
+    """Exactly a year passes; a day under it does not.
+
+    The floor used to be 180 days while the message claimed the preload list
+    asked for it. hstspreload.org requires 31536000, so the number and the
+    sentence now agree.
+    """
+    assert checks.check_hsts(_r("strict-transport-security: max-age=31536000\n"))[0].state is State.PRESENT
+    assert checks.check_hsts(_r("strict-transport-security: max-age=31535999\n"))[0].state is State.WEAK
+
+
+def test_hsts_message_does_not_misattribute_the_floor():
+    _, findings = checks.check_hsts(_r("strict-transport-security: max-age=2592000\n"))
+    detail = findings[0].detail
+    assert "year" in detail
+    assert "180" not in detail

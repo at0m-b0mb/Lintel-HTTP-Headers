@@ -4,7 +4,7 @@ The protection checks.
 Each function reads the parsed headers and answers one question: is this defence
 in place, undercut, or missing? It returns a :class:`Protection` for the coverage
 grid and any findings for the report. The thresholds are deliberately mainstream
-— the long HSTS max-age the preload list wants, a CSP without ``unsafe-inline``,
+— the year-long HSTS max-age the preload list requires, a CSP without ``unsafe-inline``,
 cookies that are ``Secure`` and ``HttpOnly`` — so the grade reflects accepted
 practice rather than one person's preference.
 """
@@ -15,7 +15,9 @@ import re
 
 from .model import Cookie, Finding, Protection, Report, Severity, State
 
-_HSTS_MIN = 15552000  # 180 days, the floor the preload list expects
+# One year. This is the figure hstspreload.org actually requires of any domain
+# submitted since 2017 -- not the 180 days this once claimed it did.
+_HSTS_MIN = 31536000
 
 
 def _f(sev, title, detail, pts=0, cat="general"):
@@ -45,8 +47,9 @@ def check_hsts(r: Report) -> tuple[Protection, list[Finding]]:
         return (Protection("hsts", "HTTPS enforced (HSTS)", State.WEAK,
                            f"max-age is only {days} days"),
                 [_f(Severity.NOTICE, "HSTS max-age is short",
-                    f"max-age is {days} days; the preload list expects at least "
-                    f"180. A short window leaves a gap after it lapses.", 5, "hsts")])
+                    f"max-age is {days} days. The preload list requires at least a "
+                    f"year, and a short window leaves a gap once it lapses.",
+                    5, "hsts")])
     extra = "" if sub else " It does not cover subdomains (includeSubDomains)."
     note = "preloaded" if preload else ("covers subdomains" if sub else "")
     return (Protection("hsts", "HTTPS enforced (HSTS)", State.PRESENT, note),

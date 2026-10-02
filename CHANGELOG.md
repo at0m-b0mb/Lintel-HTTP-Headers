@@ -35,7 +35,7 @@ First release.
 ### Engineering
 - The engine (`lintel.core`) is pure standard library — no third-party
   dependencies, no network.
-- 157 tests across the parser, every protection check, the full grading pipeline
+- 159 tests across the parser, every protection check, the full grading pipeline
   against the sample set, and a WCAG-AA contrast suite over both themes.
 - Off-screen screenshot capture and a repository-art generator whose social card
   is held inside GitHub's safe border by a registered-rectangle check.
